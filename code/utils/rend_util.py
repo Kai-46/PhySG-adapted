@@ -10,19 +10,26 @@ from scipy import linalg
 
 
 
-def load_rgb(path):
+def load_rgb(path, trgt_HW=None):
     img = imageio.imread(path)[:, :, :3]
     img = np.float32(img)
     if not path.endswith('.exr'):
         img = img / 255.
+    if trgt_HW is not None:
+        trgt_H, trgt_W = trgt_HW
+        img = cv2.resize(img, (trgt_W, trgt_H), interpolation=cv2.INTER_AREA)
 
     img = img.transpose(2, 0, 1)     # [C, H, W]
     return img
 
 
-def load_mask(path):
+def load_mask(path, trgt_HW=None):
     alpha = imageio.imread(path, as_gray=True)
     alpha = np.float32(alpha) / 255.
+    if trgt_HW is not None:
+        trgt_H, trgt_W = trgt_HW
+        alpha = cv2.resize(alpha, (trgt_W, trgt_H), interpolation=cv2.INTER_NEAREST)
+
     object_mask = alpha > 0.5
 
     return object_mask

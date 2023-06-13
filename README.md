@@ -1,3 +1,22 @@
+# Parallel evaluation on our data
+```
+# set up conda env
+. ./env.sh
+
+# fit all envmaps with spherical gaussians
+cd code/envmaps
+python fit_all_envmaps.py
+
+# train all scenes
+cd code
+python fit_all.py  # output is written to ../exps
+
+# evaluate all scenes
+cd code
+python eval_all.py # output is gathered to ../evals/gather
+```
+
+
 # PhySG: Inverse Rendering with Spherical Gaussians for Physics-based Relighting and Material Editing
 * CVPR 2021. Project page: [https://kai-46.github.io/PhySG-website/](https://kai-46.github.io/PhySG-website/)
 
