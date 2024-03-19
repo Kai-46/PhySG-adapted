@@ -1,4 +1,4 @@
-# Parallel evaluation on our data
+# Parallel evaluation
 ```
 # set up conda env
 . ./env.sh
